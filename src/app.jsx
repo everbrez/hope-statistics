@@ -1,9 +1,17 @@
-import React from 'react';
-import ReactDOM from "react-dom";
+import Dairies from './articles';
+jQuery(document).ready(init);
 
-console.log(22222)
+function init() {
+	const startDate = '2018-08-05',
+		endDate = '2018-09-06';
 
-ReactDOM.render(
-   <h1>none chikuso shinehodo idai desu</h1>,
-    document.body
-);
+	const dairys = new Dairies();
+	dairys.getData({
+		startDate,
+		endDate
+	}, data => {
+		console.log(data);
+		$('#app').text(data);
+	})
+
+}
