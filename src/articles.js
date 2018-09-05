@@ -4,6 +4,14 @@ class Articles {
 		this.updatePersonList = this.updatePersonList.bind(this);
 	}
 
+	init(options) {
+		if(options.startDate && options.endDate) {
+			const t = new Date(options.endDate) - new Date(options.startDate);
+			const date = Math.floor(t / (1000*3600*24*7));
+			this.requireNum = Math.floor(date * this.unit);
+		}
+	}
+
 	async getData(options) {
 		const id = options.id || this.id;
 		const type = options.type || this.type;
@@ -88,6 +96,7 @@ class Articles {
 	}
 
 	async statistics(options) {
+		this.init(options);
 		const data = await this.getData(options);
 		data.data.pop();
 		return this.analyse(data.data);
@@ -111,6 +120,7 @@ class Dairies extends Articles {
 		this.id = 78;
 		this.type = 'dairy';
 		this.requireNum = num;
+		this.unit = 5;
 	}
 }
 
@@ -120,6 +130,7 @@ class Summaries extends Articles {
 		this.id = '77,321';
 		this.type = 'summary'
 		this.requireNum = num;
+		this.unit = 4;
 	}
 }
 
@@ -129,6 +140,7 @@ class Notes extends Articles {
 		this.id = '19,21,22,28,23,24,25,26,27,179,29';
 		this.type = 'note';
 		this.requireNum = num;
+		this.unit = 1;
 	}
 
 	analyse(data) {
