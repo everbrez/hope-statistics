@@ -1,16 +1,24 @@
 class Articles {
 	constructor() {
 		this.baseUrl = 'http://ce.sysu.edu.cn/hope/statistics/Index.aspx';
+		this.updatePersonList = this.updatePersonList.bind(this);
 	}
 
 	async getData(options) {
+		const {
+			id,
+			type,
+			...opts
+		} = options;
 		const data = await this.get(this.baseUrl, {
-			id: this.id,
-			type: this.type,
-			...options
+			id: id || this.id,
+			type: type || this.type,
+			...opts
 		});
 
-		return this.processData(data);
+		return new Promise((resolve, reject) => {
+			resolve(this.processData(data));
+		});
 	}
 
 	get(url, data) {
@@ -22,9 +30,25 @@ class Articles {
 	}
 
 	processData(data) {
-		const pattern = /(?<=<!--data-start--\>)[\w\W]+(?=\<\!--data-end--\>)/gm;
-		const result =  JSON.parse(pattern.exec(data)[0]).data;
-		return result;
+		return JSON.parse(data);
+	}
+
+	getPersonList() {
+		if (this.personList) {
+			return this.personList;
+		}
+		return this.updatePersonList();
+	}
+
+	async updatePersonList() {
+		const {data} = await this.getData({
+			type: 'person'
+		});
+
+		this.personList = data;
+		return new Promise(resolve => {
+			resolve(data);
+		});
 	}
 
 }
@@ -53,16 +77,9 @@ class Notes extends Articles {
 	}
 }
 
-class PersonList extends Articles {
-	constructor() {
-		super();
-		this.type = 'person'
-	}
-}
 export {
 	Articles,
 	Dairies,
 	Summaries,
-	Notes,
-	PersonList
+	Notes
 }
