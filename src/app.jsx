@@ -1,23 +1,19 @@
-import { Dairies, Summaries, Notes} from './articles';
+import { Summaries, Notes, Dairies} from './articles';
 jQuery(document).ready(init);
 
-async function init() {
+function init() {
 	const options = {
 		startDate : '2018-08-05',
 		endDate : '2018-09-06'
 	};
 
-	const dairys = new Dairies();
-	 dairys.getData(options).then((data) => {
-		 console.log(data);
-	 });
+	const dairy = new Dairies();
+	dairy.statistics(options);
 
-	 const summaries = new Summaries();
-	 summaries.getData(options).then(data => {console.log(data)});
+	const note = new Notes();
+	note.statistics(options);
 
-	 const notes = new Notes();
-	 notes.getData(options).then(data => {console.log(data)});
-
-	 notes.getPersonList().then(data => console.log(data));
+	const summary = new Summaries();
+	summary.statistics(options);
 
 }
