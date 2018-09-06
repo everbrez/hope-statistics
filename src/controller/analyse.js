@@ -1,3 +1,5 @@
+import jQuery from 'jquery';
+
 class Articles {
 	constructor() {
 		this.baseUrl = 'http://ce.sysu.edu.cn/hope/statistics/Index.aspx';
@@ -110,6 +112,21 @@ class Articles {
 			}
 		}
 		return personList;
+	}
+
+	async getStatisticData(options) {
+		const data = await this.statistics(options);
+		const res = [];
+		for(let i in data) {
+			let person = data[i];
+			res.push({
+				name: i,
+				grade: person['年级'],
+				group: person['组别'],
+				...person['count']
+			});
+		}
+		return res.sort((a,b) => a.grade - b.grade);
 	}
 
 }
