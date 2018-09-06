@@ -130,7 +130,7 @@ class Summaries extends Articles {
 		this.id = '77,321';
 		this.type = 'summary'
 		this.requireNum = num;
-		this.unit = 4;
+		this.unit = 0.25;
 	}
 }
 
