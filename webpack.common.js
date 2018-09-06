@@ -28,7 +28,7 @@ const config = {
                 }
             }],
         }, {
-            test: /\.(png|jpe?g|gif|bmp)$/,
+            test: /\.(png|jpe?g|gif|bmp|woff|svg|eot|ttf)$/,
             use: [{
                 loader: 'file-loader',
                 options: {
