@@ -1,6 +1,6 @@
 import React from 'react';
-import { Steps, Button, Message } from 'element-react';
-import Dairy from '../dairy/dairy';
+import { Steps, Message } from 'element-react';
+import Dairy from '../article/dairy';
 const { Step } = Steps;
 
 export default class Content extends React.Component {
@@ -10,6 +10,7 @@ export default class Content extends React.Component {
 			activeStep: 1,
 			finish: false
 		}
+		this.next = this.next.bind(this);
 	}
 
 	next() {
@@ -44,8 +45,7 @@ export default class Content extends React.Component {
 					<Step title="确认结果"></Step>
 					<Step title="发表文章"></Step>
 				</Steps>
-				<Dairy activeStep={activeStep}/>
-				<Button onClick={() => this.next()}>{finish ? 'post' : '下一步'}</Button>
+				<Dairy activeStep={activeStep} next={this.next} />
 			</div>
 		);
 	}

@@ -1,37 +1,25 @@
 import React from 'react';
-import { Form, Layout, DatePicker } from 'element-react';
-
-const { Item } = Form;
-const { Col } = Layout;
+import { Form, DatePicker } from 'element-react';
+const {Item} = Form;
 
 export default class Froms extends React.Component {
 	constructor(props) {
 		super(props);
-
-		this.state = {
-			form: {
-				startDate: '',
-				endDate: ''
-			}
-		}
 	}
-
+	
 	render() {
-		const {submitHandle = ()=>{}} = this.props;
+		const {startDate, endDate,changeHandle} = this.props;
+		const model = {
+			startDate, 
+			endDate
+		}
 		return (
-			<Form model={this.state.form} onSubmit={() => submitHandle()}>
-				<Item label="时间">
-						<Col span="6">
-							<Item prop="startDate" required>
-								<DatePicker />
-							</Item>
-						</Col>
-						<Col span="2">-</Col>
-						<Col span="6">
-							<Item prop="endDate" required>
-								<DatePicker />
-							</Item>
-						</Col>
+			<Form model={model} >
+				<Item prop="startDate" required label="开始时间">
+					<DatePicker onChange={changeHandle('startDate')} value={startDate} />
+				</Item>
+				<Item prop="endDate" required label="结束时间">
+					<DatePicker onChange={changeHandle('endDate')} value={endDate} />
 				</Item>
 			</Form>
 		);
