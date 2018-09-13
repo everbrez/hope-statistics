@@ -1,6 +1,6 @@
 import React from 'react';
 import Form from '../form/form';
-import { Button } from 'element-react';
+import { Button, Tag } from 'element-react';
 import Table from '../table/table';
 import { Dairies, Notes, Summaries } from '../../controller/analyse';
 
@@ -10,18 +10,20 @@ export default class Article extends React.Component {
 		this.state = {
 			startDate: new Date(),
 			endDate: new Date(),
-			data: []
+			data: [],
+			load: false
 		}
+		this.type = 'article';
 
 		this.changeHandle = this.changeHandle.bind(this);
 		this.submit = this.submit.bind(this);
 	}
 
 	route(activeStep) {
-		const {startDate, endDate, data} = this.state;
+		const {startDate, endDate, data, load} = this.state;
 		switch (activeStep) {
 			case 1: return <Form changeHandle={this.changeHandle} startDate={startDate} endDate={endDate}></Form>;
-			case 2: return <Table data={data}/>;
+			case 2: return <Table data={data} v-loading={load}/>;
 			case 3: return <div>article</div>;
 			default: return <div>error</div>;
 		}
@@ -69,7 +71,8 @@ export default class Article extends React.Component {
 		const data = await articleType.getStatisticData(options);
 		console.log(data);
 		this.setState({
-			data
+			data,
+			load: true
 		});
 	}
 
@@ -77,8 +80,11 @@ export default class Article extends React.Component {
 		const { activeStep, next} = this.props;
 		return (
 			<div className="article">
+				<div>
+					<Tag>{this.type}</Tag>
+				<Button onClick={activeStep === 1 ? this.submit : next} style={{margin: '20px'}}>{activeStep >= 3 ? '提交' : '下一步'}</Button>
+				</div>
 				{this.route(activeStep)}
-				<Button onClick={activeStep === 1 ? this.submit : next}>{activeStep >= 3 ? '提交' : '下一步'}</Button>
 			</div>
 		);
 	}
