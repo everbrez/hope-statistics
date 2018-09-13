@@ -8,18 +8,29 @@ const {Row, Col} = Layout;
 export default class App extends React.Component {
 	constructor(props) {
 		super(props);
+		this.state = {
+			index: '1'
+		};
+		this.switchContent = this.switchContent.bind(this);
+	}
+
+	switchContent(index) {
+		console.log(index);
+		this.setState({
+			index
+		});
 	}
 
 	render() {
-		const {children} = this.props;
+		const {index} = this.state;
 		return(
 			<div>
 				<Row gutte="20">
 					<Col span="5">
-					<Sidebar />
+					<Sidebar onClick={this.switchContent} index={index}/>
 					</Col>
 					<Col span="13" offset="2">
-						<Content />
+						<Content index={index}/>
 					</Col>
 				</Row>
 			</div>

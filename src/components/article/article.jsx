@@ -2,6 +2,7 @@ import React from 'react';
 import Form from '../form/form';
 import { Button } from 'element-react';
 import Table from '../table/table';
+import { Dairies, Notes, Summaries } from '../../controller/analyse';
 
 export default class Article extends React.Component {
 	constructor(props) {
@@ -35,9 +36,41 @@ export default class Article extends React.Component {
 		return handle.bind(this);
 	}
 
-	submit() {
+	submit(type) {
 		const { next } = this.props;
 		next();
+		this.getData(type);
+	}
+
+	formatDate(date) {
+		return `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`
+	}
+
+	async	getData(type = '') {
+		const {startDate, endDate} = this.state;
+		const options = {
+			startDate: this.formatDate(startDate),
+			endDate: this.formatDate(endDate)
+		}
+
+		let articleType = null;
+
+		switch(type) {
+			case 'dairy': 
+				articleType = new Dairies();
+				break;
+			case 'note':
+				articleType = new Notes();
+				break;
+			case 'summary': 
+			articleType = new Summaries();
+		}
+
+		const data = await articleType.getStatisticData(options);
+		console.log(data);
+		this.setState({
+			data
+		});
 	}
 
 	render() {

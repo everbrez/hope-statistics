@@ -1,6 +1,8 @@
 import React from 'react';
 import { Steps, Message } from 'element-react';
 import Dairy from '../article/dairy';
+import Note from '../article/note';
+import Summary from '../article/summary';
 const { Step } = Steps;
 
 export default class Content extends React.Component {
@@ -8,9 +10,16 @@ export default class Content extends React.Component {
 		super(props);
 		this.state = {
 			activeStep: 1,
-			finish: false
+			finish: false,
 		}
 		this.next = this.next.bind(this);
+	}
+
+	componentWillReceiveProps(index) {
+		this.setState({
+			activeStep: 1,
+			finish: false
+		})
 	}
 
 	next() {
@@ -36,8 +45,20 @@ export default class Content extends React.Component {
 		});
 	}
 
+	switchContent(index,activeStep) {
+		switch(index) {
+			case '1': 
+				return <Dairy activeStep={activeStep} next={this.next} />
+			case '2': 
+			return 	<Note activeStep={activeStep} next={this.next} />
+			case '3': 
+			return 	<Summary activeStep={activeStep} next={this.next} />
+		}
+	}
+
 	render() {
-		const { activeStep, finish } = this.state;
+		const { activeStep} = this.state;
+		const {index} = this.props;
 		return (
 			<div className="content">
 				<Steps active={activeStep}>
@@ -45,7 +66,7 @@ export default class Content extends React.Component {
 					<Step title="确认结果"></Step>
 					<Step title="发表文章"></Step>
 				</Steps>
-				<Dairy activeStep={activeStep} next={this.next} />
+				{this.switchContent(index ,activeStep)}
 			</div>
 		);
 	}
