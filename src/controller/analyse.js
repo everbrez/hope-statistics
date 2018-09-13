@@ -125,7 +125,7 @@ class Articles {
 				...person['count']
 			});
 		}
-		return res.sort((a,b) => a.grade - b.grade);
+		return res.sort((a,b) => a.grade+a.group+a.name > b.grade+b.group+b.name ? 1 : -1);
 	}
 
 }

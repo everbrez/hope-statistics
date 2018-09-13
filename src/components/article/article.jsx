@@ -23,8 +23,8 @@ export default class Article extends React.Component {
 		const {startDate, endDate, data, load} = this.state;
 		switch (activeStep) {
 			case 1: return <Form changeHandle={this.changeHandle} startDate={startDate} endDate={endDate}></Form>;
-			case 2: return <Table data={data} v-loading={load}/>;
-			case 3: return <div>article</div>;
+			case 2: return <Table data={data} v-loading={!load}/>;
+			case 3: return <div>正在开发中。。。</div>;
 			default: return <div>error</div>;
 		}
 	}
