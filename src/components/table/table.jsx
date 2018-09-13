@@ -43,7 +43,7 @@ export default class Tables extends React.Component {
 
 	render() {
 		return (
-			<Table stripe={true} data={this.state.data} columns={this.state.columns}/>
+			<Table stripe={true} data={this.props.data} columns={this.state.columns}/>
 		);
 	}
 }

@@ -41,11 +41,11 @@ export default class Article extends React.Component {
 	}
 
 	render() {
-		const { activeStep} = this.props;
+		const { activeStep, next} = this.props;
 		return (
 			<div className="article">
 				{this.route(activeStep)}
-				<Button onClick={this.submit}>{activeStep >= 3 ? '提交' : '下一步'}</Button>
+				<Button onClick={activeStep === 1 ? this.submit : next}>{activeStep >= 3 ? '提交' : '下一步'}</Button>
 			</div>
 		);
 	}

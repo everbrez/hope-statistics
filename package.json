@@ -19,7 +19,7 @@
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-0": "^6.24.1",
     "clean-webpack-plugin": "^0.1.19",
-    "css-loader": "^0.28.11",
+    "css-loader": "^1.0.0",
     "extract-text-webpack-plugin": "^4.0.0-beta.0",
     "file-loader": "^1.1.11",
     "html-loader": "^0.5.5",
@@ -36,7 +36,7 @@
   },
   "dependencies": {
     "element-react": "^1.4.21",
-    "element-theme-default": "^1.4.13",
+    "element-theme-default": "^1.4.12",
     "react": "^16.4.1",
     "react-dom": "^16.4.1"
   }

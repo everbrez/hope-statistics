@@ -93,7 +93,6 @@ class Articles {
 		}
 
 		let result = this.test(personList);
-		console.log(result);
 		return result;
 	}
 

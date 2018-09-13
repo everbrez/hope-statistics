@@ -8,16 +8,17 @@ export default class Dairy extends Article {
 
 	async submit() {
 		super.submit();
-		// this.setState({
-		// 	data: [{
-		// 		name: 'test',
-		// 		group: 'qianduan',
-		// 		grade: '16',
-		// 		num: 1,
-		// 		requireNum: 23,
-		// 		pass: false
-		// 	}]
-		// });
+		this.setState({
+			data: [{
+				name: 'test',
+				group: 'qianduan',
+				grade: '16',
+				num: 1,
+				requireNum: 23,
+				pass: false
+			}]
+		});
+		
 		const {startDate, endDate} = this.state;
 		const options = {
 			startDate: this.formatDate(startDate),
@@ -25,6 +26,7 @@ export default class Dairy extends Article {
 		}
 		const dairy = new Dairies();
 		const data = await dairy.getStatisticData(options);
+		console.log(data);
 		this.setState({
 			data
 		});
