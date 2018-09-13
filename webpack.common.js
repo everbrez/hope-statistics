@@ -33,7 +33,7 @@ const config = {
                 loader: 'file-loader',
                 options: {
                     name: '[name][hash].[ext]',
-                    publicPath: 'assets/',
+                    publicPath: '/',
                 }
             }]
         }, {
@@ -71,7 +71,6 @@ const config = {
 
     context: __dirname,
 
-   // externals: ["react", /^@angular\//],
 
     plugins: [
         new CleanWebpackPlugin(['./build/']),

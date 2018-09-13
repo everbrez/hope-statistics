@@ -21,7 +21,8 @@ const prodConfig = {
                 ]
             })
         }]
-    },
+		},
+		externals: ["element-theme-default"],
 
     plugins: [
         new UglifyJSPlugin({
