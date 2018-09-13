@@ -43,7 +43,7 @@ export default class Article extends React.Component {
 	}
 
 	formatDate(date) {
-		return `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`
+		return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`
 	}
 
 	async	getData(type = '') {
