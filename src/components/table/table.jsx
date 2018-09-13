@@ -1,11 +1,21 @@
 import React from 'react';
-import { Table, Tag } from 'element-react';
+import { Table, Tag, Form } from 'element-react';
 
 export default class Tables extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
 			columns: [
+				{
+					type: 'expand',
+					expandPannel(data) {
+						return (
+						<Form>
+								{data.data.map((item,index) =>(<Form.Item style={{margin: 0}}> <Tag type='success' style={{marginRight: 10}}>{index}</Tag> {item}</Form.Item>))}
+            </Form>
+						);
+					}
+				},
 				{
 					label: 'grade',
 					prop: 'grade'
