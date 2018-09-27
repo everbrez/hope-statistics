@@ -1,6 +1,6 @@
 import React from 'react';
 import Form from '../form/form';
-import { Button, Tag } from 'element-react';
+import { Button, Tag, Loading } from 'element-react';
 import Table from '../table/table';
 import { Dairies, Notes, Summaries } from '../../controller/analyse';
 
@@ -23,7 +23,7 @@ export default class Article extends React.Component {
 		const {startDate, endDate, data, load} = this.state;
 		switch (activeStep) {
 			case 1: return <Form changeHandle={this.changeHandle} startDate={startDate} endDate={endDate}></Form>;
-			case 2: return <Table data={data} v-loading={!load}/>;
+			case 2: return <Loading loading={!load}><Table data={data}/>;</Loading>
 			case 3: return <div>正在开发中。。。</div>;
 			default: return <div>error</div>;
 		}
@@ -80,10 +80,6 @@ export default class Article extends React.Component {
 		const { activeStep, next} = this.props;
 		return (
 			<div className="article">
-				<div>
-					<Tag>{this.type}</Tag>
-				<Button onClick={activeStep === 1 ? this.submit : next} style={{margin: '20px'}}>{activeStep >= 3 ? '提交' : '下一步'}</Button>
-				</div>
 				{this.route(activeStep)}
 			</div>
 		);
