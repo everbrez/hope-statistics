@@ -5,11 +5,11 @@ const { Item } = Form;
 export default class Froms extends React.Component {
   constructor(props) {
     super(props);
-
+    const {startDate, endDate} = this.props;
     this.state = {
       form: {
-        startDate: null,
-        endDate: null
+        startDate: startDate,
+        endDate:  endDate
       },
       rules: {
         startDate: [
@@ -23,7 +23,7 @@ export default class Froms extends React.Component {
   }
 
   componentDidMount() {
-    this.validate();
+      this.validate();
   }
 
   onChange(key, value) {
@@ -38,6 +38,10 @@ export default class Froms extends React.Component {
   validate() {
   const {onChange} = this.props;
   this.refs.form.validate(valid => onChange(valid, this.state.form));
+  }
+
+  reset() {
+    this.refs.form.resetFields();
   }
 
   render() {

@@ -11,7 +11,7 @@ export default class Content extends React.Component {
     this.state = {
       maxStep: 3,
       activeStep: 1,
-      finish: false,
+      finish: true,
       loading: false,
     }
     this.next = this.next.bind(this);
@@ -44,7 +44,6 @@ export default class Content extends React.Component {
   }
 
   toggleState(state) {
-    console.log(1222)
     this.setState(state);
   }
 
