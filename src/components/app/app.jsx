@@ -3,37 +3,31 @@ import { Layout } from 'element-react';
 import Sidebar from '../sidebar/sidebar';
 import Content from '../content/content';
 
-const {Row, Col} = Layout;
+const { Row, Col } = Layout;
 
 export default class App extends React.Component {
-	constructor(props) {
-		super(props);
-		this.state = {
-			index: '1'
-		};
-		this.switchContent = this.switchContent.bind(this);
-	}
+  constructor(props) {
+    super(props);
+    this.state = {
+      index: '1'
+    };
+    this.switchContent = this.switchContent.bind(this);
+  }
 
-	switchContent(index) {
-		console.log(index);
-		this.setState({
-			index
-		});
-	}
+  switchContent(tab) {
+    const {props:{name}} = tab;
+    this.setState({
+      index: name
+    });
+  }
 
-	render() {
-		const {index} = this.state;
-		return(
-			<div>
-				<Row gutte="20">
-					<Col span="5">
-					<Sidebar onClick={this.switchContent} index={index}/>
-					</Col>
-					<Col span="13" offset="2">
-						<Content index={index}/>
-					</Col>
-				</Row>
-			</div>
-		);
-	}
+  render() {
+    const { index } = this.state;
+    return (
+        <Row>
+          <Sidebar onClick={this.switchContent} index={index} />
+          <Content index={index} />
+        </Row>
+    );
+  }
 } 
