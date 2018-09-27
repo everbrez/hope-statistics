@@ -44,17 +44,18 @@ export default class Content extends React.Component {
   }
 
   toggleState(state) {
+    console.log(1222)
     this.setState(state);
   }
 
   switchContent(index, activeStep) {
     switch (index) {
       case '1':
-        return <Dairy activeStep={activeStep} next={this.next} />
+        return <Dairy activeStep={activeStep} toggleState={this.toggleState}/>
       case '2':
-        return <Note activeStep={activeStep} next={this.next} />
+        return <Note activeStep={activeStep} toggleState={this.toggleState}/>
       case '3':
-        return <Summary activeStep={activeStep} next={this.next} />
+        return <Summary activeStep={activeStep} toggleState={this.toggleState}/>
     }
   }
 

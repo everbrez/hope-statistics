@@ -20,22 +20,28 @@ export default class Article extends React.Component {
 	}
 
 	route(activeStep) {
-		const {startDate, endDate, data, load} = this.state;
+		const {data, load} = this.state;
 		switch (activeStep) {
-			case 1: return <Form changeHandle={this.changeHandle} startDate={startDate} endDate={endDate}></Form>;
+			case 1: return <Form onChange={this.changeHandle}></Form>;
 			case 2: return <Loading loading={!load}><Table data={data}/>;</Loading>
 			case 3: return <div>正在开发中。。。</div>;
 			default: return <div>error</div>;
 		}
 	}
 
-	changeHandle(prop) {
-		function handle(value) {
-			this.setState({
-				[prop]: value
-			});
-		}
-		return handle.bind(this);
+	changeHandle(valid, data) {
+    if(valid) {
+      this.props.toggleState({
+        finish: true
+      });
+      this.setState({
+        ...data
+      });
+    } else {
+      this.props.toggleState({
+        finish: false
+      });
+    }
 	}
 
 	submit(type) {
