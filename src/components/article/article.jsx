@@ -7,9 +7,16 @@ import { Dairies, Notes, Summaries } from '../../controller/analyse';
 export default class Article extends React.Component {
   constructor(props) {
     super(props);
+    let now = new Date();
+    let day = now.getDay();
+    now.setDate(now.getDate() - day + 1);
+    let prevTime = new Date(now.getTime());
+    prevTime.setDate(prevTime.getDate() - 5);
     this.state = {
-      startDate: null,
-      endDate: new Date(),
+      startDate: prevTime,
+      endDate: now,
+      requiredNum: 5,
+      unit: 1,
       data: [],
       load: true
     }
@@ -22,9 +29,9 @@ export default class Article extends React.Component {
   }
 
   route(activeStep) {
-    const { data, load, startDate, endDate } = this.state;
+    const { data, load, startDate, endDate, requiredNum, unit } = this.state;
     switch (activeStep) {
-      case 1: return <Form onChange={this.changeHandle} startDate={startDate} endDate={endDate}></Form>;
+      case 1: return <Form onChange={this.changeHandle} startDate={startDate} endDate={endDate} requiredNum={requiredNum} unit={unit}></Form>;
       case 2: return <Loading loading={load}> <Table data={data} /> </Loading>
       case 3: return <div>正在开发中......</div>;
       default: return <div>error</div>;
@@ -52,10 +59,7 @@ export default class Article extends React.Component {
     this.unload(data);
   }
 
-  formatDate(date) {
-    return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`
-  }
-
+  
   load() {
     this.setState({
       load: true
@@ -77,24 +81,28 @@ export default class Article extends React.Component {
     });
   }
 
+  formatDate(date) {
+    return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`
+  }
+
   async	getData(type = '') {
     const { startDate, endDate } = this.state;
     const options = {
-      startDate: this.formatDate(startDate),
-      endDate: this.formatDate(endDate)
+      startDate:  `${this.formatDate(startDate)} 00:00:00`,
+      endDate:  `${this.formatDate(endDate)} 23:59:59`
     }
 
     let articleType = null;
 
     switch (type) {
       case 'dairy':
-        articleType = new Dairies();
+        articleType = new Dairies(this.state.requiredNum);
         break;
       case 'note':
-        articleType = new Notes();
+        articleType = new Notes(this.state.requiredNum);
         break;
       case 'summary':
-        articleType = new Summaries();
+        articleType = new Summaries(this.state.requiredNum);
     }
 
     const data = await articleType.getStatisticData(options);

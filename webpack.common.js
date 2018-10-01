@@ -9,7 +9,7 @@ const config = {
 
     output: {
         path: path.resolve(__dirname, 'build'),
-        filename: '[name].[hash].bundle.js',
+        filename: 'hopestatistics.js',
         // publicPath: '/build/assets/',
 
         library: 'react',

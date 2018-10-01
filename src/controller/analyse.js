@@ -6,18 +6,14 @@ class Articles {
 		this.updatePersonList = this.updatePersonList.bind(this);
 	}
 
-	init(options) {
-		if(options.startDate && options.endDate) {
-			const t = new Date(options.endDate) - new Date(options.startDate);
-			const date = Math.floor(t / (1000*3600*24*7));
-			this.requireNum = Math.floor(date * this.unit);
-		}
-	}
-
 	async getData(options) {
 		const id = options.id || this.id;
-		const type = options.type || this.type;
-
+    const type = options.type || this.type;
+    if(type === 'dairy') {
+      let end = new Date(options.endDate);
+      end.setMonth(end.getMonth() + 1);
+      options.endDate = `${end.getFullYear()}-${end.getMonth() + 1}-${end.getDate()} 23:59:59`;
+    }
 		const opts = Object.assign({}, options, {
 			id,
 			type
@@ -97,7 +93,6 @@ class Articles {
 	}
 
 	async statistics(options) {
-		this.init(options);
 		const data = await this.getData(options);
 		data.data.pop();
 		return this.analyse(data.data);
@@ -111,9 +106,19 @@ class Articles {
 			}
 		}
 		return personList;
-	}
+  }
+  
+  formatDate(date, end = false) {
+    let time  = '00:00:00';
+    if(end) {
+      time = '23:59:59';
+    }
+    return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()} ${time}`
+  }
 
 	async getStatisticData(options) {
+    this.startDate = new Date(options.startDate);
+    this.endDate = new Date(options.endDate);
 		const data = await this.statistics(options);
 		const res = [];
 		for(let i in data) {
@@ -125,7 +130,7 @@ class Articles {
 				...person['count']
 			});
 		}
-		return res.sort((a,b) => a.grade+a.group+a.name > b.grade+b.group+b.name ? 1 : -1);
+		return res.sort((a,b) => a.grade + a.group + a.name > b.grade + b.group + b.name ? 1 : -1);
 	}
 
 }
@@ -137,6 +142,15 @@ class Dairies extends Articles {
 		this.type = 'dairy';
 		this.requireNum = num;
 		this.unit = 5;
+  }
+  
+  analyse(data) {
+		return super.analyse(data, data => {
+			return data.filter(item => {
+        const time = new Date(item.title);
+        return time >= this.startDate && time <= this.endDate;
+			});
+		});
 	}
 }
 
@@ -157,7 +171,7 @@ class Notes extends Articles {
 		this.type = 'note';
 		this.requireNum = num;
 		this.unit = 1;
-	}
+  }
 
 	analyse(data) {
 		return super.analyse(data, data => {
