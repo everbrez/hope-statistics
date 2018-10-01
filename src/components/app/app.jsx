@@ -3,7 +3,7 @@ import { Layout } from 'element-react';
 import Sidebar from '../sidebar/sidebar';
 import Content from '../content/content';
 
-const { Row, Col } = Layout;
+const { Row } = Layout;
 
 export default class App extends React.Component {
   constructor(props) {

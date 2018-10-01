@@ -17,6 +17,7 @@ export default class Content extends React.Component {
     this.next = this.next.bind(this);
     this.prev = this.prev.bind(this);
     this.toggleState = this.toggleState.bind(this);
+    this.onRef = this.onRef.bind(this);
   }
 
   next() {
@@ -24,6 +25,10 @@ export default class Content extends React.Component {
     const activeStep = step < maxStep ? step + 1 : maxStep;
     this.setState({
       activeStep
+    },() => {
+      if(activeStep === 2) {
+        this.child.submit();
+      }
     })
   }
 
@@ -33,6 +38,10 @@ export default class Content extends React.Component {
     this.setState({
       activeStep
     })
+  }
+
+  onRef(ref) {
+    this.child = ref;
   }
 
   finish() {
@@ -50,11 +59,11 @@ export default class Content extends React.Component {
   switchContent(index, activeStep) {
     switch (index) {
       case '1':
-        return <Dairy activeStep={activeStep} toggleState={this.toggleState}/>
+        return <Dairy activeStep={activeStep} toggleState={this.toggleState} onRef={this.onRef}/>
       case '2':
-        return <Note activeStep={activeStep} toggleState={this.toggleState}/>
+        return <Note activeStep={activeStep} toggleState={this.toggleState} onRef={this.onRef}/>
       case '3':
-        return <Summary activeStep={activeStep} toggleState={this.toggleState}/>
+        return <Summary activeStep={activeStep} toggleState={this.toggleState} onRef={this.onRef}/>
     }
   }
 
@@ -69,7 +78,7 @@ export default class Content extends React.Component {
           <Step title="发表文章"></Step>
         </Steps>
         {this.switchContent(index, activeStep)}
-        {activeStep > 1 ? <Button type="primary" loading={loading} onClick={this.prev}>prev</Button> : ''}
+        {activeStep > 1 ? <Button type="primary" onClick={this.prev}>prev</Button> : ''}
         {activeStep < maxStep ? <Button type="primary" loading={loading} onClick={this.next} disabled={!finish}>next</Button> : ''}
         {activeStep === maxStep ? <Button type="primary" loading={loading} onClick={this.finish} disabled={!finish}>finish</Button> : ''}
       </div>

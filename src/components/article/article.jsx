@@ -15,6 +15,8 @@ export default class Article extends React.Component {
     }
     this.type = 'article';
 
+    this.props.onRef(this);
+
     this.changeHandle = this.changeHandle.bind(this);
     this.submit = this.submit.bind(this);
   }
@@ -45,6 +47,7 @@ export default class Article extends React.Component {
   }
 
   async submit(type) {
+    console.log(233333);
     this.load();
     const data = await this.getData(type);
     this.unload(data);

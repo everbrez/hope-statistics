@@ -85,8 +85,7 @@ export default class Tables extends React.Component {
 			],
 			data: this.props.data
 		}
-	}
-
+  }
 
 	render() {
 		return (
