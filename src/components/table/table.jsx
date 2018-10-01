@@ -3,7 +3,7 @@ import { Table, Tag, Form } from 'element-react';
 
 export default class Tables extends React.Component {
 	constructor(props) {
-		super(props);
+    super(props);
 		this.state = {
 			columns: [
 				{
@@ -17,30 +17,26 @@ export default class Tables extends React.Component {
 					}
 				},
 				{
-					label: 'grade',
+					label: '年级',
 					prop: 'grade'
 				},
 				{
-					label: 'name',
+					label: '姓名',
 					prop: 'name'
 				},
 				{
-					label: 'num',
+					label: '数量',
 					prop: 'num',
-					filters:[{
-						text: '通过',
-						value: true
-					},{
-						text: '没通过',
-						value: false
-					}
-				],
-				filterMethod(value, row, column) {
-					if(value === '通过') {
-						return row.pass;
-					} else if(value === '没通过') {
-						return !row.pass;
-					}
+          filters:[
+          {text: '通过',value: 1111},
+          {text: '没通过',value:2333}],
+				filterMethod(value, row) {
+          if(value === 1111) {
+            return row.pass;
+          } else if(value === 2333){
+            return !row.pass;
+          }
+          return true;
 				},
 					render(data) {
 						return (
@@ -51,7 +47,7 @@ export default class Tables extends React.Component {
 					}
 				},
 				{
-					label: 'Tag',
+					label: '组别',
 					prop: 'group',
 					filters:[{text:'前端组', value:'前端组'},
 					{text:'网管组', value:'网管组'},
@@ -74,7 +70,7 @@ export default class Tables extends React.Component {
 								return 'danger';
 								case '数码组':
 								default:
-								return '';
+								return 'normal';
 							}
 						};
 						return (
