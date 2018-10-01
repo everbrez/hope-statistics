@@ -70,7 +70,7 @@ export default class Tables extends React.Component {
 								return 'danger';
 								case '数码组':
 								default:
-								return 'normal';
+								return 'gray';
 							}
 						};
 						return (
