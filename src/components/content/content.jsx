@@ -97,9 +97,11 @@ export default class Content extends React.Component {
           <Step title="发表文章"></Step>
         </Steps>
         {this.switchContent(index, activeStep)}
-        {activeStep > 1 ? <Button type="primary" onClick={this.prev}>prev</Button> : ''}
+       <div style={{marginTop: 20}}>
+       {activeStep > 1 ? <Button type="primary" onClick={this.prev}>prev</Button> : ''}
         {activeStep < maxStep ? <Button type="primary" loading={loading} onClick={this.next} disabled={!finish}>next</Button> : ''}
         {activeStep === maxStep ? <Button type="primary" loading={loading} onClick={this.finish} disabled={!finish}>finish</Button> : ''}
+       </div>
       </div>
     );
   }
