@@ -18,26 +18,45 @@ export default class Content extends React.Component {
     this.prev = this.prev.bind(this);
     this.toggleState = this.toggleState.bind(this);
     this.onRef = this.onRef.bind(this);
+    this.init = this.init.bind(this);
+  }
+
+  componentDidUpdate(props,prevState,snapshot) {
+    if(this.props.index !== props.index) {
+      this.init();
+    }
+  }
+
+  init() {
+    this.setState({
+      activeStep: 1,
+      finish: true,
+      loading: false,
+    });
   }
 
   next() {
     const { maxStep, activeStep: step } = this.state;
     const activeStep = step < maxStep ? step + 1 : maxStep;
     this.setState({
-      activeStep
-    },() => {
-      if(activeStep === 2) {
+      activeStep,
+      loading: false,
+      finish: true
+    }, () => {
+      if (activeStep === 2) {
         this.child.submit();
       }
-    })
+    });
   }
 
   prev() {
     const { activeStep: step } = this.state;
     const activeStep = step > 1 ? step - 1 : 1;
     this.setState({
-      activeStep
-    })
+      activeStep,
+      loading: false,
+      finish: true
+    });
   }
 
   onRef(ref) {
@@ -59,11 +78,11 @@ export default class Content extends React.Component {
   switchContent(index, activeStep) {
     switch (index) {
       case '1':
-        return <Dairy activeStep={activeStep} toggleState={this.toggleState} onRef={this.onRef}/>
+        return <Dairy activeStep={activeStep} toggleState={this.toggleState} onRef={this.onRef} />
       case '2':
-        return <Note activeStep={activeStep} toggleState={this.toggleState} onRef={this.onRef}/>
+        return <Note activeStep={activeStep} toggleState={this.toggleState} onRef={this.onRef} />
       case '3':
-        return <Summary activeStep={activeStep} toggleState={this.toggleState} onRef={this.onRef}/>
+        return <Summary activeStep={activeStep} toggleState={this.toggleState} onRef={this.onRef} />
     }
   }
 

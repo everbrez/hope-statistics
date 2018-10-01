@@ -8,8 +8,8 @@ export default class Article extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      startDate: new Date(),
-      endDate: null,
+      startDate: null,
+      endDate: new Date(),
       data: [],
       load: true
     }
@@ -47,7 +47,6 @@ export default class Article extends React.Component {
   }
 
   async submit(type) {
-    console.log(233333);
     this.load();
     const data = await this.getData(type);
     this.unload(data);
@@ -58,7 +57,6 @@ export default class Article extends React.Component {
   }
 
   load() {
-    console.log(`load`);
     this.setState({
       load: true
     });
