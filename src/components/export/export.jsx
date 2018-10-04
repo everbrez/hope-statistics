@@ -1,21 +1,21 @@
 import React, {Component} from 'react';
-import {Button} from 'element-react';
+import {Button, Notification} from 'element-react';
+import {CopyToClipboard} from 'react-copy-to-clipboard';
 
 export default class Export extends Component {
-  constructor(props) {
-    super(props);
-    this.handleClick = this.handleClick.bind(this);
-  }
-
   handleClick() {
-    console.log(this.props.data);
+    Notification({
+      title: '导出结果',
+      message: '复制成功',
+      type: 'success'
+    });
   }
 
   render() {
     return (
-      <Button onClick={this.handleClick} style={{marginTop: 20}} id={'btn'}>
-        导出结果
-      </Button>
+      <CopyToClipboard text={this.props.data}>
+          <Button onClick={this.handleClick} style={{marginTop: 20}} >导出结果</Button>
+      </CopyToClipboard>
     )
   }
 }
