@@ -10,6 +10,13 @@ export default class Export extends Component {
         message: '复制HTML代码成功，请在编辑器中继续操作。',
         type: 'success'
       });
+      if(!text) {
+        Notification({
+          title: '导出结果',
+          message: '没有选中任何结果',
+          type: 'error'
+        });
+      }
     } else {
       Notification({
         title: '导出结果',

@@ -19,7 +19,7 @@ export default class Content extends React.Component {
     this.toggleState = this.toggleState.bind(this);
     this.onRef = this.onRef.bind(this);
     this.init = this.init.bind(this);
-    this.init = this.init.bind(this);
+    this.finish = this.finish.bind(this);
   }
 
   componentDidUpdate(props,prevState,snapshot) {
