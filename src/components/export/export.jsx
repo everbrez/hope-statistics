@@ -5,16 +5,17 @@ import { CopyToClipboard } from 'react-copy-to-clipboard';
 export default class Export extends Component {
   onCopy(text, res) {
     if (res) {
-      Notification({
-        title: '导出结果',
-        message: '复制HTML代码成功，请在编辑器中继续操作。',
-        type: 'success'
-      });
       if(!text) {
         Notification({
           title: '导出结果',
-          message: '没有选中任何结果',
+          message: '没有选中任何结果，请在表格左侧勾选需要导出的结果。',
           type: 'error'
+        });
+      } else {
+        Notification({
+          title: '导出结果',
+          message: '复制HTML代码成功，请在编辑器中继续操作。',
+          type: 'success'
         });
       }
     } else {
