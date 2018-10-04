@@ -6,6 +6,9 @@ export default class Tables extends React.Component {
     super(props);
 		this.state = {
 			columns: [
+        {
+          type: 'selection',
+        },
 				{
 					type: 'expand',
 					expandPannel(data) {
@@ -84,8 +87,14 @@ export default class Tables extends React.Component {
   }
 
 	render() {
+    const data = [{"name":"宋婧仪","grade":"15","group":"前端组","num":0,"data":[],"requireNum":5,"pass":false},{"name":"郑培钦","grade":"15","group":"前端组","num":0,"data":[],"requireNum":5,"pass":false},{"name":"雷雨","grade":"15","group":"前端组","num":0,"data":[],"requireNum":5,"pass":false},{"name":"文海平","grade":"15","group":"网管组","num":5,"data":["2018-09-28","2018-09-27","2018-09-26","2018-09-25","2018-09-24"],"requireNum":5,"pass":true},{"name":"罗丽苹","grade":"15","group":"网管组","num":4,"data":["2018-09-27","2018-09-26","2018-09-25","2018-09-24"],"requireNum":5,"pass":false},{"name":"谭贤宝","grade":"15","group":"网管组","num":4,"data":["2018-09-28","2018-09-27","2018-09-26","2018-09-25"],"requireNum":5,"pass":false},{"name":"冯泽伦","grade":"16","group":"前端组","num":2,"data":["2018-09-26","2018-09-25"],"requireNum":5,"pass":false},{"name":"林秘海","grade":"16","group":"前端组","num":2,"data":["2018-09-25","2018-09-24"],"requireNum":5,"pass":false},{"name":"胡靖元","grade":"16","group":"前端组","num":6,"data":["2018-09-30","2018-09-29","2018-09-28","2018-09-27","2018-09-26","2018-09-25"],"requireNum":5,"pass":true},{"name":"邓泳锋","grade":"16","group":"前端组","num":3,"data":["2018-09-26","2018-09-25","2018-09-24"],"requireNum":5,"pass":false},{"name":"杨利婷","grade":"16","group":"网管组","num":6,"data":["2018-09-30","2018-09-29","2018-09-28","2018-09-27","2018-09-26","2018-09-25"],"requireNum":5,"pass":true},{"name":"谈正起","grade":"16","group":"网管组","num":5,"data":["2018-09-28","2018-09-27","2018-09-26","2018-09-25","2018-09-24"],"requireNum":5,"pass":true},{"name":"贺泽芃","grade":"16","group":"网管组","num":5,"data":["2018-09-28","2018-09-27","2018-09-26","2018-09-25","2018-09-24"],"requireNum":5,"pass":true},{"name":"杨立凡","grade":"17","group":"前端组","num":3,"data":["2018-09-26","2018-09-25","2018-09-24"],"requireNum":5,"pass":false},{"name":"王羿","grade":"17","group":"网管组","num":6,"data":["2018-09-30","2018-09-29","2018-09-28","2018-09-27","2018-09-26","2018-09-25"],"requireNum":5,"pass":true},{"name":"严禧哲","grade":"18","group":"前端组","num":0,"data":[],"requireNum":5,"pass":false}];
 		return (
-			<Table stripe={true} data={this.props.data} columns={this.state.columns}/>
+      <Table 
+      stripe={true} 
+      // data={this.props.data} 
+      data={data}
+      columns={this.state.columns}
+      onSelectChange={value=>console.log(value)} />
 		);
 	}
 }

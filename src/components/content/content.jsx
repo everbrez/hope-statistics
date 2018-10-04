@@ -94,7 +94,7 @@ export default class Content extends React.Component {
         <Steps active={activeStep} style={{ marginTop: 20 }} space={200}>
           <Step title="填写参数"></Step>
           <Step title="查询结果"></Step>
-          <Step title="发表文章"></Step>
+          <Step title="导出结果"></Step>
         </Steps>
         {this.switchContent(index, activeStep)}
        <div style={{marginTop: 20}}>
