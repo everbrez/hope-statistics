@@ -21,21 +21,21 @@ export default class Article extends React.Component {
       endDate: now,
       requiredNum: 5,
       unit: 1,
+      dUnit: 0,
       data: [],
       load: true
     }
     this.type = 'article';
 
     this.props.onRef(this);
-
     this.changeHandle = this.changeHandle.bind(this);
     this.submit = this.submit.bind(this);
   }
 
   route(activeStep) {
-    const { data, load, startDate, endDate, requiredNum, unit } = this.state;
+    const { data, load, startDate, endDate, requiredNum, unit, dUnit } = this.state;
     switch (activeStep) {
-      case 1: return <Form onChange={this.changeHandle} startDate={startDate} endDate={endDate} requiredNum={requiredNum} unit={unit}></Form>;
+      case 1: return <Form onChange={this.changeHandle} startDate={startDate} endDate={endDate} requiredNum={requiredNum} unit={unit} dUnit={dUnit}></Form>;
       case 2: return <Loading loading={load}> <Table data={data} resizable /> </Loading>
       case 3: return <div>正在开发中......</div>;
       default: return <div>error</div>;

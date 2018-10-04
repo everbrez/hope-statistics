@@ -5,13 +5,12 @@ const { Item } = Form;
 export default class Froms extends React.Component {
   constructor(props) {
     super(props);
-    const {startDate, endDate, requiredNum, unit} = this.props;
+    const {startDate, endDate, requiredNum } = this.props;
     this.state = {
       form: {
         startDate: startDate,
         endDate:  endDate,
         requiredNum: requiredNum,
-        unit: unit,
       },
       rules: {
         startDate: [
@@ -29,15 +28,33 @@ export default class Froms extends React.Component {
   }
 
   handleRequiredNum(form) {
-    const {startDate, endDate, unit} = form;
+    const {startDate, endDate } = form;
+    const {unit, dUnit} = this.props;
     if(!startDate || !endDate) {
       return {};
     }
-    let start = Math.floor(startDate.getTime() / (1000 * 60 * 60 * 24));
-    let end = Math.ceil(endDate.getTime() / (1000 * 60 * 60 * 24));
-    let days = Math.floor((end - start)/ 7);
+    startDate.setHours(0,0,0,0);
+    endDate.setHours(0,0,0,0);
+    let start = Math.floor(startDate / (1000 * 3600 * 24));
+    let end = Math.ceil(endDate.getTime() / (1000 * 3600 * 24));
+    let days = end - start;
+    let weeks = Math.floor(days / 7);
+    let last = days % 7;
+    const startDay = startDate.getDay();
+    const endDay = endDate.getDay();
+    let lastDays = last - 2 > 0 ? last - 2 : 0;
+    if(endDay - startDay >= 0) {
+      let i = 0;
+      if(startDay === 0) {
+        i++;
+      }
+      if(startDay + last > 6) {
+        i++;
+      }
+      lastDays = last - i;
+    }
     return {
-      requiredNum: Math.floor(days * unit)
+      requiredNum: Math.floor(weeks * unit) + Math.floor(lastDays * dUnit)
     };
   }
 
