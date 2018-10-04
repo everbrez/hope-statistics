@@ -9,9 +9,13 @@ export default class Article extends React.Component {
     super(props);
     let now = new Date();
     let day = now.getDay();
-    now.setDate(now.getDate() - day + 1);
+    if(day < 5 && day > 0) {
+      now.setDate(now.getDate() - day);
+    }
     let prevTime = new Date(now.getTime());
-    prevTime.setDate(prevTime.getDate() - 5);
+    let day2 = prevTime.getDay();
+    day2 = day2 === 0 ? 7 : day2;
+    prevTime.setDate(prevTime.getDate() - day2 + 1);
     this.state = {
       startDate: prevTime,
       endDate: now,

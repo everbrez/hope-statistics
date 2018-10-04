@@ -7,11 +7,6 @@ export default class Summary extends Article {
     this.state.unit = 0.25;
     this.state.requiredNum = 1;
 
-    let now = new Date();
-    now.setDate(15);
-    now.setMonth(now.getMonth() - 1);
-    console.log(now)
-    this.state.startDate = now;
 	}
 
 	submit() {
