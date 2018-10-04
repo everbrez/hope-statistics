@@ -9,7 +9,7 @@ export default class Content extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      maxStep: 3,
+      maxStep: 2,
       activeStep: 1,
       finish: true,
       loading: false,
@@ -69,6 +69,7 @@ export default class Content extends React.Component {
       message: 'success',
       showClose: true
     });
+    this.init();
   }
 
   toggleState(state) {
