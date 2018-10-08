@@ -2,7 +2,7 @@ import jQuery from 'jquery';
 
 class Articles {
 	constructor() {
-		this.baseUrl = 'http://202.116.83.50/hope/statistics/Index.aspx';
+		this.baseUrl = '/hope/statistics/Index.aspx';
 		this.updatePersonList = this.updatePersonList.bind(this);
 	}
 
