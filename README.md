@@ -1,2 +1,3 @@
-# react-webpack
-react-webpack开发模板
+# hope-statistics
+
+this repository is no longer maintain. please move to v2.0 [statistics](https://github.com/everbrez/statistics).
